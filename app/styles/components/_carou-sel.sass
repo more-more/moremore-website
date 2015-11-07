@@ -1,0 +1,28 @@
+@at-root
+
+  @import app/styles/helpers/utility/positioning
+
+  ////------------------------------------------
+  .carouSel
+    //------------------------------------------
+
+    // ----- Layout -----
+    width:    100%
+    height:   100vh
+
+    // ----- Content layout -----
+    .carouSel-imageContainer
+      &, > .liquid-child
+        height: 100%
+
+    .carouSel-image
+      +wh(100%)
+      object-fit: cover
+
+    .carouSel-button
+      +stretch
+      width:   25%
+
+      &._next
+        left:  auto
+        right: 0

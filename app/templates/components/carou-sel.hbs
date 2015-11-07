@@ -1,0 +1,26 @@
+
+
+
+{{#liquid-bind
+  currentImage
+  use="crossFade"
+  class="carouSel-imageContainer"
+  as |image|
+}}
+  <img
+    class="carouSel-image"
+    src={{image.imageUrl}}
+  >
+
+  <a
+    href
+    {{action 'prev'}}
+    class="carouSel-button _prev"
+  >Prev</a>
+
+  <a
+    href
+    {{action 'next'}}
+    class="carouSel-button _next"
+  >Next</a>
+{{/liquid-bind}}
