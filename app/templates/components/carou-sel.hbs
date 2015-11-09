@@ -1,26 +1,44 @@
-
-
-
 {{#liquid-bind
   currentImage
   use="crossFade"
   class="carouSel-imageContainer"
   as |image|
 }}
-  <img
-    class="carouSel-image"
-    src={{image.imageUrl}}
-  >
+  <div class="carouSel-imageContainer-inner">
+    <img
+      class="carouSel-image"
+      src={{image.imageUrl}}
+    >
+  </div>
 
   <a
     href
     {{action 'prev'}}
     class="carouSel-button _prev"
-  >Prev</a>
+  >
+    {{inline-svg
+      'svg/colorless/chevron-left'
+      class="carouSel-button-icon"
+    }}
+  </a>
 
   <a
     href
     {{action 'next'}}
     class="carouSel-button _next"
-  >Next</a>
+  >
+    {{inline-svg
+      'svg/colorless/chevron-right'
+      class="carouSel-button-icon"
+    }}
+  </a>
+
+  <div class="carouSel-content">
+    {{yield}}
+  </div>
+
+  {{inline-svg
+    'svg/colorless/angle-double-down'
+    class="carouSel-arrowDown"
+  }}
 {{/liquid-bind}}

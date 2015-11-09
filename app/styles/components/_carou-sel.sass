@@ -2,6 +2,11 @@
 
   @import app/styles/helpers/utility/positioning
 
+  $blur-size:        4px
+  $arrow-padding:    10%
+  $arrow-width:      10%
+  $click-area-width: 25%
+
   ////------------------------------------------
   .carouSel
     //------------------------------------------
@@ -12,17 +17,97 @@
 
     // ----- Content layout -----
     .carouSel-imageContainer
-      &, > .liquid-child
-        height: 100%
+      &, > .liquid-child, .carouSel-imageContainer-inner
+        +wh(100%)
+
+    .carouSel-imageContainer-inner
+      position: relative
 
     .carouSel-image
-      +wh(100%)
+      position:   absolute
+      left:      -$blur-size
+      top:       -$blur-size
+      width:     calc(100% + #{$blur-size * 2})
+      height:    calc(100% + #{$blur-size * 2})
+      max-width: unset
+
       object-fit: cover
 
     .carouSel-button
       +stretch
-      width:   25%
+      width:   $click-area-width
 
       &._next
         left:  auto
         right: 0
+
+    .carouSel-button-icon
+      +center-vertical
+      width:    $arrow-width
+      height:   auto
+
+    .carouSel-button._prev .carouSel-button-icon
+      left: $arrow-padding
+
+    .carouSel-button._next .carouSel-button-icon
+      right: $arrow-padding
+
+    .carouSel-content
+      +center
+
+    .carouSel-arrowDown
+      +center-horizontal
+      bottom:    5%
+      width:     $arrow-width / (100% / $click-area-width)
+      height:    auto
+      animation: float-minus-50-percent 3s infinite ease-in-out
+
+
+
+  ////------------------------------------------
+  .carouSel-image
+    //------------------------------------------
+
+    // ----- Blur -----
+    filter: blur($blur-size)
+
+
+
+  ////------------------------------------------
+  .carouSel-button
+    //------------------------------------------
+
+    // ----- Gradient on hover -----
+
+    $gradient-colors: transparent, rgba(black, 0.1)
+
+    transition: opacity 0.5s, background 0.5s
+
+    &:not(:hover)
+      opacity: 0.5
+
+    &:hover
+      opacity:    1
+      background: linear-gradient(to left, $gradient-colors)
+
+    &._next:hover
+      background: linear-gradient(to right, transparent, $gradient-colors)
+
+
+
+  ////------------------------------------------
+  .carouSel-button-icon
+    //------------------------------------------
+
+    // ----- Looks -----
+    fill: white
+
+
+  ////------------------------------------------
+  .carouSel-arrowDown
+    //------------------------------------------
+
+    // ----- Looks -----
+    fill: white
+
+
