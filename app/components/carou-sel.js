@@ -19,7 +19,17 @@ export default E.Component.extend({
 
 
   // Computed properties
-  sortedImages:      E.computed.sort('titleImages', 'sortedImagesOrder'),
+  filteredImages:    E.computed(
+    'titleImages.@each.isDeleting',
+    'titleImages.@each.isDeleted',
+    'titleImages.@each.isNew',
+    function () {
+      return this
+        .get('titleImages')
+        .filter(ti => !ti.get('isNew') &&!ti.get('isDeleting') && !ti.get('isDeleted'));
+    }
+  ),
+  sortedImages:      E.computed.sort('filteredImages', 'sortedImagesOrder'),
   sortedImagesOrder: ['position:asc'],
 
   currentImage: E.computed(
