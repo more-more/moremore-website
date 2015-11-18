@@ -1,16 +1,25 @@
 import E from 'ember';
 
 export default E.Component.extend({
+
   // Arguments
-  images: null,
+  titleImages: null,
+
+
+  // ----- Services -----
+  session: E.inject.service(),
 
 
   // Overridden properties
   classNameBindings: [':carouSel'],
 
 
+  // ----- Static properties -----
+  isEditing: true,
+
+
   // Computed properties
-  sortedImages:      E.computed.sort('images', 'sortedImagesOrder'),
+  sortedImages:      E.computed.sort('titleImages', 'sortedImagesOrder'),
   sortedImagesOrder: ['position:asc'],
 
   currentImage: E.computed(
@@ -46,6 +55,7 @@ export default E.Component.extend({
       const nextImage = images.objectAt(nextIndex);
       this.set('currentImage', nextImage);
     },
+
     prev () {
       const currentImage = this.get('currentImage');
       const images       = this.get('sortedImages');
@@ -56,6 +66,10 @@ export default E.Component.extend({
 
       const prevImage = images.objectAt(prevIndex);
       this.set('currentImage', prevImage);
+    },
+
+    toggleEdit () {
+      this.toggleProperty('isEditing');
     }
   }
 

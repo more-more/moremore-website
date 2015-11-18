@@ -1,0 +1,79 @@
+{{#sortable-group
+  class="titleImagesEditor-items"
+  tagName="ul"
+  onChange="reorder"
+  as |group|
+}}
+  {{#each sortedTitleImages as |image|}}
+    {{#sortable-item
+      class="titleImagesEditor-item"
+      tagName="li"
+      model=image
+      group=group
+      handle=".titleImagesEditor-item-handle"
+    }}
+      <div class="titleImagesEditor-item-content titleImagesEditor-item-handle">
+        {{inline-svg
+          'svg/colorless/hamburger-thin'
+          class="titleImagesEditor-item-handle-icon"
+        }}
+      </div>
+
+      <img
+        class="titleImagesEditor-item-content titleImagesEditor-item-image"
+        src={{image.imageUrl}}
+      >
+
+      <div class="titleImagesEditor-item-content titleImagesEditor-item-meta">
+
+        <div class="titleImagesEditor-item-meta-row">
+          {{image.id}}
+          {{input value=image.imageUrl}}
+        </div>{{!titleImagesEditor-item-meta-row}}
+
+        <div class="titleImagesEditor-item-meta-row">
+          {{async-button
+            image
+            action='destroy'
+            default="Delete"
+            pending="Deleting..."
+          }}
+        </div>{{!titleImagesEditor-item-meta-row}}
+
+      </div>{{!titleImagesEditor-item-content/meta}}
+    {{/sortable-item}}
+  {{/each}}
+{{/sortable-group}}
+
+
+{{async-button
+  action='save'
+  default="Save"
+  pending="Saving..."
+  disabled=(not dirtyTitleImages.length)
+}}
+
+<div>
+  <p>
+    Id:
+    {{input value=newTitleImage.id}}
+    {{v-get newTitleImage 'id' 'message'}}
+  </p>
+
+  <p>
+    Url:
+    {{input value=newTitleImage.imageUrl}}
+    {{v-get newTitleImage 'imageUrl' 'message'}}
+  </p>
+
+  <p>
+    Valid: {{v-get newTitleImage 'isValid'}}
+  </p>
+
+  {{async-button
+    action='add'
+    default="Add"
+    pending="Adding..."
+    disabled=(not (v-get newTitleImage 'isValid'))
+  }}
+</div>

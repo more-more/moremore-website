@@ -1,0 +1,56 @@
+@at-root
+
+  @import app/styles/helpers/utility/positioning
+
+  ////------------------------------------------
+  .titleImagesEditor-items
+    //------------------------------------------
+
+    // ----- Content layout -----
+    .titleImagesEditor-item
+      &:not(:last-child)
+        margin-bottom: 20px
+
+
+
+
+  ////------------------------------------------
+  .titleImagesEditor-item
+    //------------------------------------------
+
+    // ----- Layout -----
+    display:     flex
+    align-items: center
+
+    // ----- Content layout -----
+    $height: 50px
+
+    .titleImagesEditor-item-content
+      height: $height
+
+    .titleImagesEditor-item-image
+      width: 100px
+
+    .titleImagesEditor-item-handle
+      width:       $height
+
+    .titleImagesEditor-item-meta
+      flex-grow: 1
+
+
+
+  ////------------------------------------------
+  .titleImagesEditor-item-handle
+    //------------------------------------------
+
+    // ----- Layout -----
+    position: relative
+
+    // ----- Looks -----
+    cursor: ns-resize
+
+    // ----- Content layout -----
+    .titleImagesEditor-item-handle-icon
+      width: 20px
+      height: 20px
+      +center

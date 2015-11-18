@@ -1,5 +1,5 @@
 {{#carou-sel
-  images=model.titleImages
+  titleImages=model.titleImages
 }}
   <div class="route-index-logo">
     <h1 class="route-index-logo-title">Море-Море</h1>
@@ -7,7 +7,53 @@
   </div>
 {{/carou-sel}}
 
+<div>
+  {{#if session.isOpening}}
+    <div class="dropdown disabled signing-in">
+      Signing in...
+    </div>
+  {{else}}
+    {{#if session.isAuthenticated}}
+      <span class="user-avatar">
+          <img src="{{session.currentUser.avatarUrl32}}" />
+      </span>
+
+      <div class="dropdown">
+        <a
+          class="dropdown-toggle"
+          data-toggle="dropdown"
+          href="#"
+        >
+          {{userName}}
+          <b class="caret"></b>
+        </a>
+        <div>
+          <a
+            {{action 'signOut'}}
+            class="test-sign-out"
+          >
+            Sign out
+          </a>
+        </div>
+      </div>
+    {{else}}
+      <div>
+        <a
+          {{action 'signInViaGithub'}}
+          class="test-sign-in sign-in"
+        >
+          Sign in
+        </a>
+      </div>
+      <span class="user-avatar unauthenticated">Unauthenticated</span>
+    {{/if}}
+  {{/if}}
+</div>
+
+{{title-images-editor
+  titleImages=titleImages}}
 
 {{block-group
   blockGroup=model.blockGroupCallout
 }}
+

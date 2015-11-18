@@ -22,10 +22,23 @@ module.exports = function(environment) {
       'script-src':  "'self'",
       'font-src':    "'self' fonts.gstatic.com",
       'connect-src': "'self' https://api.github.com",
-      'img-src':     "'self'",
+      'img-src':     "'self' *",
       'style-src':   "'self' fonts.googleapis.com",
       'media-src':   "'self'"
+    },
+
+    githubOauthUrl: 'http://localhost:9999/authenticate/',
+
+    torii: {
+      sessionServiceName: 'session',
+      providers: {
+        'github-oauth2': {
+          scope: 'user, gist',
+          apiKey: '8398d19834fa96279abd'
+        }
+      }
     }
+
   };
 
   if (environment === 'development') {
@@ -52,7 +65,7 @@ module.exports = function(environment) {
   }
 
   if (environment === 'production') {
-    ENV.baseURL = '/moremore-website'
+    ENV.baseURL = '/moremore-website';
   }
 
   return ENV;
