@@ -38,11 +38,15 @@
   {{yield}}
 </div>
 
-{{inline-svg
-  'svg/colorless/angle-double-down'
+{{#scroll-to
+  href="#main"
   class="carouSel-arrowDown"
 }}
-
+  {{inline-svg
+    'svg/colorless/angle-double-down'
+    class="carouSel-arrowDown-image"
+  }}
+{{/scroll-to}}
 
 {{#if session.isAuthenticated}}
 
@@ -70,3 +74,5 @@
     {{/tether-dialog}}
   {{/if}}
 {{/if}}
+
+<div id="main"></div>

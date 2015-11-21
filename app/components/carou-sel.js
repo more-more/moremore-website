@@ -1,4 +1,5 @@
-import E from 'ember';
+import E      from 'ember';
+import moment from 'moment';
 
 export default E.Component.extend({
 
@@ -8,6 +9,7 @@ export default E.Component.extend({
 
   // ----- Services -----
   session: E.inject.service(),
+  time:    E.inject.service(),
 
 
   // Overridden properties
@@ -15,7 +17,9 @@ export default E.Component.extend({
 
 
   // ----- Static properties -----
-  isEditing: false,
+  isEditing:    false,
+  intervalMs:   3000,
+  previousTime: E.computed(function() { return this.get('time.time') }),
 
 
   // Computed properties
@@ -50,6 +54,19 @@ export default E.Component.extend({
         .forEach(imageUrl => (new Image).src = imageUrl);
     }
   )),
+
+  browseImages: E.on('init', E.observer('time.time', 'previousTime', function() {
+    const currentTime  = this.get('time.time');
+    const previousTime = this.get('previousTime');
+
+    const diffMs     = moment(currentTime).diff(previousTime, 'ms');
+    const intervalMs = this.get('intervalMs');
+
+    if (diffMs > intervalMs) {
+      this.set('previousTime', currentTime);
+      this.send('next');
+    }
+  })),
 
 
   // Actions
