@@ -7,7 +7,10 @@ import {
 } from 'ember-cp-validations';
 
 const Validations = buildValidations({
-  imageUrl: validator('presence', true),
+  imageUrl: validator('presence', {
+    presence: true,
+    message: 'URL должен присутствовать.'
+  }),
   //position: [
   //  validator('presence', true),
   //  validator(function(value, options, model/*, attribute*/) {
@@ -20,14 +23,17 @@ const Validations = buildValidations({
   //  })
   //],
   id: [
-    validator('presence', true),
+    validator('presence', {
+      presence: true,
+      message: 'ID должен присутствовать.'
+    }),
     validator(function(value, options, model/*, attribute*/) {
       return !model
         .get('store')
         .peekAll('title-image')
         .filter(ti => ti !== model && !ti.get('isDeleted') && !ti.get('isDeleting'))
         .mapBy('id')
-        .contains(value) || 'Id should be unique.';
+        .contains(value) || 'Id должен быть уникален.';
     })
   ]
 });

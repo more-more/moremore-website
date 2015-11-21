@@ -12,6 +12,7 @@
       group=group
       handle=".titleImagesEditor-item-handle"
     }}
+
       <div class="titleImagesEditor-item-content titleImagesEditor-item-handle">
         {{inline-svg
           'svg/colorless/hamburger-thin'
@@ -19,28 +20,27 @@
         }}
       </div>
 
+      <div class="titleImagesEditor-item-content titleImagesEditor-item-id">
+        {{image.id}}
+      </div>
+
       <img
         class="titleImagesEditor-item-content titleImagesEditor-item-image"
         src={{image.imageUrl}}
       >
 
-      <div class="titleImagesEditor-item-content titleImagesEditor-item-meta">
+      <div class="titleImagesEditor-item-content titleImagesEditor-item-url">
+        {{input value=image.imageUrl class="titleImagesEditor-item-url-input"}}
+      </div>
 
-        <div class="titleImagesEditor-item-meta-row">
-          {{image.id}}
-          {{input value=image.imageUrl}}
-        </div>{{!titleImagesEditor-item-meta-row}}
-
-        <div class="titleImagesEditor-item-meta-row">
-          {{async-button
-            image
-            action='destroy'
-            default="Delete"
-            pending="Deleting..."
-          }}
-        </div>{{!titleImagesEditor-item-meta-row}}
-
-      </div>{{!titleImagesEditor-item-content/meta}}
+      {{async-button
+        image
+        action='destroy'
+        default="X"
+        pending="..."
+        rejected=":("
+        class="titleImagesEditor-item-content titleImagesEditor-item-delete"
+      }}
     {{/sortable-item}}
   {{/each}}
 {{/sortable-group}}
@@ -48,32 +48,40 @@
 
 {{async-button
   action='save'
-  default="Save"
-  pending="Saving..."
-  disabled=(not dirtyTitleImages.length)
+  default="Сохранить"
+  pending="Сохранение..."
+  rejected="Ошибка, попробуйте снова"
+  disabled=cantSave
+  class="titleImagesEditor-save"
 }}
 
-<div>
-  <p>
-    Id:
-    {{input value=newTitleImage.id}}
-    {{v-get newTitleImage 'id' 'message'}}
-  </p>
 
-  <p>
-    Url:
-    {{input value=newTitleImage.imageUrl}}
-    {{v-get newTitleImage 'imageUrl' 'message'}}
-  </p>
 
-  <p>
-    Valid: {{v-get newTitleImage 'isValid'}}
-  </p>
+<div class="titleImagesEditor-add">
+
+  <h3 class="titleImagesEditor-add-title">Добавление картинки</h3>
+
+  {{model-field-input
+    class="titleImagesEditor-field _id"
+    model=newTitleImage
+    key="id"
+    value=newTitleImage.id
+    label="ID"
+  }}
+
+  {{model-field-input
+    class="titleImagesEditor-field _url"
+    model=newTitleImage
+    key="imageUrl"
+    value=newTitleImage.imageUrl
+    label="URL"
+  }}
 
   {{async-button
     action='add'
-    default="Add"
-    pending="Adding..."
+    default="Добавить"
+    pending="Добавление..."
+    rejected="Ошибка, попробуйте снова"
     disabled=(not (v-get newTitleImage 'isValid'))
   }}
 </div>

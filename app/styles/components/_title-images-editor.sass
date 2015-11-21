@@ -3,8 +3,24 @@
   @import app/styles/helpers/utility/positioning
 
   ////------------------------------------------
+  .titleImagesEditor
+    //------------------------------------------
+
+    // ----- Content layout -----
+    .titleImagesEditor-items
+      margin-bottom: 10px
+
+    .titleImagesEditor-save
+      margin-bottom: 20px
+
+
+
+  ////------------------------------------------
   .titleImagesEditor-items
     //------------------------------------------
+
+    // ----- Layout -----
+    overflow: hidden
 
     // ----- Content layout -----
     .titleImagesEditor-item
@@ -21,21 +37,23 @@
     // ----- Layout -----
     display:     flex
     align-items: center
+    position:    relative
 
     // ----- Content layout -----
-    $height: 50px
-
     .titleImagesEditor-item-content
-      height: $height
+      &:not(:last-child)
+        margin-right: 10px
 
     .titleImagesEditor-item-image
-      width: 100px
+      width:  50px
+      height: 30px
 
     .titleImagesEditor-item-handle
-      width:       $height
+      width: 30px
 
-    .titleImagesEditor-item-meta
-      flex-grow: 1
+    // ----- Behavior -----
+    &.is-dragging
+      z-index: 2
 
 
 
@@ -47,10 +65,41 @@
     position: relative
 
     // ----- Looks -----
-    cursor: ns-resize
 
     // ----- Content layout -----
     .titleImagesEditor-item-handle-icon
       width: 20px
       height: 20px
       +center
+
+    // ----- Behavior -----
+    cursor: grab
+    .titleImagesEditor-item.is-dragging &
+      cursor:  grabbing
+
+
+
+  ////------------------------------------------
+  .titleImagesEditor-item-url
+    //------------------------------------------
+
+    // ----- Layout -----
+    width: 100%
+
+
+
+  ////------------------------------------------
+  .titleImagesEditor-item-url-input
+    //------------------------------------------
+
+    // ----- Layout -----
+    width: 100%
+
+
+  ////------------------------------------------
+  .titleImagesEditor-add
+    //------------------------------------------
+
+    // ----- Content layout -----
+    .titleImagesEditor-add-title, .titleImagesEditor-field._id
+      margin-bottom: 10px

@@ -1,0 +1,15 @@
+<div class="modelField-main">
+  <label class="modelField-label">
+    {{label}}
+  </label>
+
+  <div class="modelField-field">
+    {{yield}}
+  </div>
+</div>
+
+{{#if (v-get model key 'isDirty')}}
+  <div class="modelField-error">
+    {{v-get model key 'message'}}
+  </div>
+{{/if}}

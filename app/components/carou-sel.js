@@ -15,7 +15,7 @@ export default E.Component.extend({
 
 
   // ----- Static properties -----
-  isEditing: true,
+  isEditing: false,
 
 
   // Computed properties

@@ -37,6 +37,17 @@ export default E.Component.extend({
   sortedTitleImages:      E.computed.sort('filteredTitleImages', 'sortedTitleImagesOrder'),
   dirtyTitleImages:       E.computed.filterBy('filteredTitleImages', 'hasDirtyAttributes', true),
 
+  validations:            E.computed.mapBy('filteredTitleImages', 'validations'),
+  invalidValidations:     E.computed('validations.@each.isTruelyValid', function() {
+    const validations = this.get('validations');
+    if (!validations) { return validations; }
+    return validations.filter(ti => !ti.get('isTruelyValid'));
+  }),
+
+  cantSave: E.computed('dirtyTitleImages.[]', 'invalidValidations.[]', function() {
+    return !this.get('dirtyTitleImages.length') || this.get('invalidValidations.length');
+  }),
+
   // ----- Methods -----
   tetherPosition () {
     Ember.run.schedule('afterRender', function () {
@@ -50,6 +61,17 @@ export default E.Component.extend({
     });
   },
 
+
+  // ----- Observer -----
+  triggerTetherPosition: E.observer(
+    'newTitleImage.id',
+    'newTitleImage.imageUrl',
+    function () {
+      this.tetherPosition();
+    }
+  ),
+
+
   // ----- Actions -----
   actions: {
     add (buttonPromiseAcceptor) {
@@ -58,12 +80,11 @@ export default E.Component.extend({
           .get('newTitleImage')
           .save()
           .then(() => {
-            console.log('foo')
             this.tetherPosition();
             this.set('newTitleImage', this.produceNewTitleImage());
           });
 
-      //buttonPromiseAcceptor(savePromise)
+      buttonPromiseAcceptor(savePromise)
     },
 
     destroy (buttonPromiseAcceptor, image) {
@@ -73,7 +94,7 @@ export default E.Component.extend({
           .then(() => {
             this.tetherPosition();
           });
-      //buttonPromiseAcceptor(destroyPromise);
+      buttonPromiseAcceptor(destroyPromise);
     },
 
     reorder (itemModels/*, draggedModel*/) {
@@ -84,7 +105,7 @@ export default E.Component.extend({
 
     save (buttonPromiseAcceptor) {
       const savePromise = this.get('gistSaver').batchSave(this.get('dirtyTitleImages'));
-      //buttonPromiseAcceptor(savePromise);
+      buttonPromiseAcceptor(savePromise);
     }
   }
 });
