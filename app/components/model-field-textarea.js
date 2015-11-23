@@ -3,8 +3,11 @@ import Ember from 'ember';
 export default Ember.Component.extend({
 
   // ----- Arguments -----
-  blockGroup: null,
+  model: null,
+  key:   null,
+  value: null,
+  label: null,
 
   // ----- Overridden properties -----
-  classNames: 'blockGroup'
+  classNames: ['modelFieldTextarea']
 });

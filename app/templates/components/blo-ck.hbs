@@ -1,5 +1,34 @@
-{{block.title}}
+<div class="bloCk-content">
+  {{block.title}}
 
-{{markdown-to-html
-  markdown=block.body
-}}
+  {{markdown-to-html
+    markdown=block.body
+  }}
+</div>
+
+{{#if session.isAuthenticated}}
+
+  <a
+    href
+    {{action 'toggleEdit'}}
+    class="bloCk-edit"
+  >
+    Редактировать блок
+  </a>
+
+  {{#if isEditing}}
+    {{#tether-dialog
+      close="toggleEdit"
+      targetAttachment="middle center"
+      translucentOverlay=true
+    }}
+      <div class="bloCk-modal">
+        <h2 class="bloCk-modal-title">Редактирование блока</h2>
+
+        {{block-editor
+          block=block
+        }}
+      </div>
+    {{/tether-dialog}}
+  {{/if}}
+{{/if}}

@@ -1,3 +1,11 @@
 {{#each blockGroup.blocks as |block|}}
-  {{blo-ck block=block}}
+  <div class="blockGroup-item _model">
+    {{blo-ck block=block}}
+  </div>
 {{/each}}
+
+{{#if hasBlock}}
+  <div class="blockGroup-item _yield">
+    {{yield}}
+  </div>
+{{/if}}

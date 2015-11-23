@@ -3,7 +3,7 @@ import moment from 'moment';
 
 export default E.Component.extend({
 
-  // Arguments
+  // ----- Arguments -----
   titleImages: null,
 
 
@@ -12,7 +12,7 @@ export default E.Component.extend({
   time:    E.inject.service(),
 
 
-  // Overridden properties
+  // ----- Overridden properties -----
   classNameBindings: [':carouSel'],
 
 
@@ -22,7 +22,7 @@ export default E.Component.extend({
   previousTime: E.computed(function() { return this.get('time.time') }),
 
 
-  // Computed properties
+  // ----- Computed properties -----
   filteredImages:    E.computed(
     'titleImages.@each.isDeleting',
     'titleImages.@each.isDeleted',
@@ -44,7 +44,7 @@ export default E.Component.extend({
   ),
 
 
-  // Observers
+  // ----- Observers -----
   preloadImages: E.on('init', E.observer(
     'sortedImages.@each.imageUrl',
     function () {
@@ -69,7 +69,7 @@ export default E.Component.extend({
   })),
 
 
-  // Actions
+  // ----- Actions -----
   actions: {
     next () {
       const currentImage = this.get('currentImage');
@@ -81,6 +81,7 @@ export default E.Component.extend({
 
       const nextImage = images.objectAt(nextIndex);
       this.set('currentImage', nextImage);
+      this.set('previousTime', this.get('time.time'));
     },
 
     prev () {
@@ -93,6 +94,7 @@ export default E.Component.extend({
 
       const prevImage = images.objectAt(prevIndex);
       this.set('currentImage', prevImage);
+      this.set('previousTime', this.get('time.time'));
     },
 
     toggleEdit () {

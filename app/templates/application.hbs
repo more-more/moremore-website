@@ -1,1 +1,17 @@
-{{outlet}}
+<div class="route-application-section _main">
+  {{outlet}}
+</div>
+
+<div class="route-application-section _footer">
+
+  {{#block-group
+    blockGroup=model.blockGroupFooter
+    class="route-application-blockGroup"
+  }}
+    {{log-in-out
+      signInViaGithub=(action 'signInViaGithub')
+      signOut=(action 'signOut')
+    }}
+  {{/block-group}}
+</div>
+

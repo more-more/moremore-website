@@ -1,0 +1,23 @@
+{{model-field-input
+  class="blockEditor-field _title"
+  model=block
+  key="title"
+  value=block.title
+  label="Заголовок"
+}}
+
+{{model-field-textarea
+  class="blockEditor-field _body"
+  model=block
+  key="body"
+  value=block.body
+  label="Содержимое"
+}}
+
+{{async-button
+  action='save'
+  default="Сохранить"
+  pending="Сохранение..."
+  rejected="Ошибка, попробуйте снова"
+  disabled=(not block.hasDirtyAttributes)
+}}

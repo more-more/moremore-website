@@ -36,7 +36,8 @@ export default Ember.Route.extend({
           blocks:      this.store.peekAll('block'),
           blockGroups: this.store.peekAll('block-group'),
 
-          blockGroupCallout: this.store.peekRecord('block-group', 'callout')
+          blockGroupCallout: this.store.peekRecord('block-group', 'callout'),
+          blockGroupFooter:  this.store.peekRecord('block-group', 'footer'),
         };
       });
   }
