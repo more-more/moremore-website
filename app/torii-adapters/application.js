@@ -27,8 +27,6 @@ export default E.Object.extend({  /**
   fetch () {
     const token = localStorage.getItem(LSTokenItemName);
 
-    console.log('fetch token', token)
-
     if(E.isBlank(token)) { return E.RSVP.reject(); }
 
     return this.resolveUser(token);

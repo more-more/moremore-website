@@ -1,11 +1,43 @@
-{{#each blockGroup.blocks as |block|}}
-  <div class="blockGroup-item _model">
-    {{blo-ck block=block}}
-  </div>
-{{/each}}
+{{#if session.isAuthenticated}}
 
-{{#if hasBlock}}
-  <div class="blockGroup-item _yield">
-    {{yield}}
-  </div>
+  <a
+    href
+    {{action 'toggleEdit'}}
+    class="blockGroup-edit"
+  >
+    Редактировать группу блоков "{{group}}"
+  </a>
+
+  {{#if isEditing}}
+    {{#tether-dialog
+      close="toggleEdit"
+      targetAttachment="middle center"
+      translucentOverlay=true
+    }}
+      <div class="blockGroup-modal">
+        <h2 class="blockGroup-modal-title">Редактирование группы блоков "{{group}}"</h2>
+
+        {{block-group-editor
+          blocks=sortedBlocks
+        }}
+      </div>
+    {{/tether-dialog}}
+  {{/if}}
 {{/if}}
+
+<div class="blockGroup-blocks">
+  {{#each sortedBlocks as |block|}}
+    <div class="blockGroup-item _model">
+      {{blo-ck
+        block=block
+        blocks=blocks
+      }}
+    </div>
+  {{/each}}
+
+  {{#if hasBlock}}
+    <div class="blockGroup-item _yield">
+      {{yield}}
+    </div>
+  {{/if}}
+</div>

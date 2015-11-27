@@ -14,10 +14,25 @@
   label="Содержимое"
 }}
 
+
+{{#model-field
+  class="blockEditor-field _parent"
+  label="Группа"
+}}
+  {{#power-select
+    options=groups
+    selected=newGroup
+    onchange=(action 'changeGroup')
+    as |group|
+  }}
+    {{group}}
+  {{/power-select}}
+{{/model-field}}
+
 {{async-button
   action='save'
   default="Сохранить"
   pending="Сохранение..."
   rejected="Ошибка, попробуйте снова"
-  disabled=(not block.hasDirtyAttributes)
+  disableWhen=isClean
 }}

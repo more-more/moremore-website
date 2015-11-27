@@ -51,7 +51,7 @@
   default="Сохранить"
   pending="Сохранение..."
   rejected="Ошибка, попробуйте снова"
-  disabled=cantSave
+  disableWhen=cantSave
   class="titleImagesEditor-save"
 }}
 
@@ -82,6 +82,6 @@
     default="Добавить"
     pending="Добавление..."
     rejected="Ошибка, попробуйте снова"
-    disabled=(not (v-get newTitleImage 'isValid'))
+    disableWhen=(not (v-get newTitleImage 'isValid'))
   }}
 </div>

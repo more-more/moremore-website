@@ -16,18 +16,15 @@ export default DS.JSONAPISerializer.extend({
           const frontmatter = FM(data.content);
 
           const attrs =
-              _(frontmatter.attributes.attributes)
+              _(frontmatter.attributes)
                 .mapKeys((value, key) => key.camelize())
                 .merge({ body: frontmatter.body })
                 .value();
 
-          const relationships = _.merge({}, frontmatter.attributes.relationships);
-
           return {
             type:          type,
             id:            id,
-            attributes:    attrs,
-            relationships: relationships
+            attributes:    attrs
           }
         })
         .value();
@@ -51,18 +48,19 @@ export default DS.JSONAPISerializer.extend({
     }
   },
 
-  serialize (snaphot, options) {
-    const {data: json} = this._super(snaphot, options);
+  serialize (snapshot, options) {
+
+    const {data: json} = this._super(snapshot, options);
 
     const id   = json.id;
     const type = json.type.singularize();
-    const body = json.attributes.body;
+    const body =  json.attributes && json.attributes.body;
 
     delete json.id;
     delete json.type;
-    delete json.attributes.body;
+    if (body) { delete json.attributes.body; }
 
-    const yaml = Yaml.stringify(json);
+    const yaml = Yaml.stringify(json.attributes);
 
     let result = `---\n${yaml}---`;
 

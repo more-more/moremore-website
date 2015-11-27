@@ -22,7 +22,6 @@ export default E.Service.extend({
   batchSave (records) {
     const serializedRecords = this.serializeRecords(records);
     const store             = this.get('store');
-    console.log('serializedRecords', serializedRecords)
 
     return request({
       url: this.get('config.gistUrl'),
@@ -35,8 +34,6 @@ export default E.Service.extend({
       }
     })
       .then((response) => {
-        console.log('response', response);
-        console.log('records', records.length, records);
         store.pushPayload(response);
         return E.RSVP.all(
           records.map(r => {
