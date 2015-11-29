@@ -1,0 +1,51 @@
+{{#sortable-group
+  class="blockGroupEditor-items"
+  tagName="ul"
+  onChange="reorder"
+  as |sortableGroup|
+}}
+  {{#each blocks as |block|}}
+    {{#sortable-item
+      class="blockGroupEditor-item"
+      tagName="li"
+      model=block
+      group=sortableGroup
+      handle=".blockGroupEditor-item-handle"
+    }}
+
+      <div class="blockGroupEditor-item-content blockGroupEditor-item-handle">
+        {{inline-svg
+          'svg/colorless/hamburger-thin'
+          class="blockGroupEditor-item-handle-icon"
+        }}
+      </div>
+
+      <div class="blockGroupEditor-item-content blockGroupEditor-item-id">
+        {{block.id}}
+      </div>
+
+      <div class="blockGroupEditor-item-content blockGroupEditor-item-title">
+        {{block.title}}
+      </div>
+
+      {{async-button
+        block
+        action='destroy'
+        default="X"
+        pending="..."
+        rejected=":("
+        class="blockGroupEditor-item-content blockGroupEditor-item-delete"
+      }}
+    {{/sortable-item}}
+  {{/each}}
+{{/sortable-group}}
+
+
+{{async-button
+  action='save'
+  default="Сохранить блоки"
+  pending="Сохранение..."
+  rejected="Ошибка, попробуйте снова"
+  disableWhen=cantSave
+  class="blockGroupEditor-save"
+}}

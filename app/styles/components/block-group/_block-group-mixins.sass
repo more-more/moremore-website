@@ -1,22 +1,30 @@
 @import app/styles/config/rwd
 
 =block-group-three
-  flex-wrap: wrap
 
-  .blockGroup-item
-    +to(xs)
+  +eq-pts((zero: 0, small: 400, medium: 800, large: 1200))
+
+  .blockGroup-blocks
+    flex-wrap: wrap
+
+  +eq(zero)
+    .blockGroup-item
       width: 100%
 
-    +between(s, l)
+  +eq(small)
+    .blockGroup-item
       width: 50%
 
-    +from(xl)
+  +eq(medium)
+    .blockGroup-item
       width: (100% / 3)
 
 
 =block-group-space-around
-  justify-content: space-around
+  .blockGroup-blocks
+    justify-content: space-around
 
 
 =block-group-space-between
-  justify-content: space-between
+  .blockGroup-blocks
+    justify-content: space-between

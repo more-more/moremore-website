@@ -1,0 +1,13 @@
+<div class="eventListList-inner">
+  {{#each groupedEventsSortedKeys as |dateUnixMs|}}
+    <div>
+      {{moment-format dateUnixMs 'dddd D MMMM' 'x'}}
+    </div>
+
+    <div>
+      {{#each (get groupedEvents dateUnixMs) as |event|}}
+        {{event-x event=event}}
+      {{/each}}
+    </div>
+  {{/each}}
+</div>g

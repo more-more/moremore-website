@@ -37,6 +37,10 @@ module.exports = function(environment) {
           apiKey: '8398d19834fa96279abd'
         }
       }
+    },
+
+    moment: {
+      includeLocales: ['ru']
     }
 
   };

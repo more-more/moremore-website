@@ -7,8 +7,17 @@
   </div>
 {{/carou-sel}}
 
-{{block-group
-  group="callout"
-  blocks=model.blocks
-  class="route-index-callout"
-}}
+
+{{#sec-tion}}
+
+  {{event-list
+    events=model.events
+  }}
+
+  {{block-group
+    group="callout"
+    blocks=model.blocks
+    class="route-index-callout"
+  }}
+
+{{/sec-tion}}

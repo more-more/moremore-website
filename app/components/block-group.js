@@ -1,7 +1,8 @@
 import E from 'ember';
 import { filterFromCollectionByKey } from 'ember-macaroni';
+import ElementQueryMixin from 'moremore-website/mixins/element-query'
 
-export default E.Component.extend({
+export default E.Component.extend(ElementQueryMixin, {
 
   // ----- Arguments -----
   group:  null,

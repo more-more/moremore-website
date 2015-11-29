@@ -15,16 +15,10 @@ export default DS.JSONAPISerializer.extend({
           const [foo, type, id] = data.filename.split('.');
           const frontmatter = FM(data.content);
 
-          const attrs =
-              _(frontmatter.attributes)
-                .mapKeys((value, key) => key.camelize())
-                .merge({ body: frontmatter.body })
-                .value();
-
           return {
             type:          type,
             id:            id,
-            attributes:    attrs
+            attributes:    {...frontmatter.attributes, body: frontmatter.body}
           }
         })
         .value();
@@ -42,10 +36,12 @@ export default DS.JSONAPISerializer.extend({
       [data, included] = _.partition(records, r => r.type === (model && model.modelName));
     }
 
-    return {
+    const newPayload = {
       data:     data,
       included: included
-    }
+    };
+
+    return this._super(store, model, newPayload, id, requestType);
   },
 
   serialize (snapshot, options) {

@@ -2,6 +2,8 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
 
+  moment: Ember.inject.service(),
+
   actions: {
 
     signInViaGithub () {
@@ -17,6 +19,8 @@ export default Ember.Route.extend({
   },
 
   beforeModel() {
+    this.get('moment').changeLocale('ru');
+
     return this
       .session
       .fetch('github-oauth2')
@@ -32,7 +36,8 @@ export default Ember.Route.extend({
         return {
           posts:       posts,
           titleImages: this.store.peekAll('title-image'),
-          blocks:      this.store.peekAll('block')
+          blocks:      this.store.peekAll('block'),
+          events:      this.store.peekAll('event')
         };
       });
   }

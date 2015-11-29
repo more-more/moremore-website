@@ -1,0 +1,39 @@
+{{#if session.isAuthenticated}}
+  <a
+    href
+    {{action 'toggleAddingEvent'}}
+    class="eventList-edit"
+  >
+    Добавить событие
+  </a>
+
+  {{#if isAddingEvent}}
+    {{#tether-dialog
+      close="toggleAddingEvent"
+      targetAttachment="middle center"
+      translucentOverlay=true
+    }}
+      <div class="eventList-modal">
+        <h2 class="eventList-modal-title">Добавление события</h2>
+
+        {{event-adder}}
+
+      </div>
+    {{/tether-dialog}}
+  {{/if}}
+{{/if}}
+
+<p>
+  startDate {{startDate}}
+</p>
+
+
+{{event-list-list
+  events=archivedEvents
+}}
+
+<hr>
+
+{{event-list-list
+  events=upcomingEvents
+}}

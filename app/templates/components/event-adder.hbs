@@ -1,0 +1,58 @@
+{{model-field-input
+  class="eventAdder-field _id"
+  model=newEvent
+  key="id"
+  value=newEvent.id
+  label="ID"
+}}
+
+{{model-field-input
+  class="eventAdder-field _title"
+  model=newEvent
+  key="title"
+  value=newEvent.title
+  label="Заголовок"
+}}
+
+{{model-field-textarea
+  class="eventAdder-field _body"
+  model=newEvent
+  key="body"
+  value=newEvent.body
+  label="Текст"
+}}
+
+{{model-field-date
+  class="eventAdder-field _date"
+  model=newEvent
+  key="date"
+  value=newEvent.date
+  label="День"
+}}
+
+{{model-field-input
+  class="eventAdder-field _hour"
+  model=newEvent
+  key="hour"
+  value=newEvent.hour
+  type="number"
+  label="Час"
+}}
+
+{{model-field-input
+  class="eventAdder-field _minute"
+  model=newEvent
+  key="minute"
+  value=newEvent.minute
+  type="number"
+  label="Минута"
+}}
+
+{{async-button
+  action='save'
+  default="Сохранить"
+  pending="Сохранение..."
+  rejected="Ошибка, попробуйте снова"
+  disableWhen=cantSave
+  class="eventAdder-save"
+}}

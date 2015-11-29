@@ -52,6 +52,7 @@
     "ember-macaroni": "0.2.1",
     "ember-modal-dialog": "0.8.2",
     "ember-moment": "4.1.0",
+    "ember-pikaday": "0.13.0",
     "ember-power-select": "0.5.2",
     "ember-scroll-to": "0.4.0",
     "ember-sortable": "1.6.2",
